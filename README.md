@@ -4,7 +4,7 @@
 
 **What is that?**
 
-It is a single page web app scripted with ReactJS
+It is a single page web app created with ReactJS. You can see a books list and you can organize it. You can search a book using the title or the authors, also.
 
 **How to use**:
 
@@ -15,16 +15,16 @@ It is a single page web app scripted with ReactJS
 node -v
 ```
 - Download the project
-- Move to the project directory with your terminal
-** Linux/macOS: **
+- Move to the project directory with your terminal:
+**Linux/macOS:**
 
 ```cd <path>```
 
-** Windows: ** (if you are working on the same partition of your system install)
+**Windows:** (if you are working on the same partition of your system install)
 
 ```cd <path>```
 
-** Windows: ** (if you are working on other partition)
+**Windows:** (if you are working on other partition)
 
 ```cd /d <path>```
 
@@ -45,4 +45,4 @@ npm start
 - Udacity for the base code of the project
 - NodeJS
 - Facebook for ReactJS
-- All the creator of implement components (react-router-dom, escape-reg-exp, sort)
+- All creators of implemented components (react-router-dom, escape-reg-exp, sort)
