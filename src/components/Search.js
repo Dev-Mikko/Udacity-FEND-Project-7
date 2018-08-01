@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './../BooksAPI'
 import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import Book from './Book'
 
@@ -12,27 +12,31 @@ class Search extends React.Component {
 
 	state = {
 		query: '',
+		results: []
+	}
+
+	searchBooks = () => {
+		BooksAPI.search(this.state.query).then(resp => {
+			if(resp) {
+				resp.forEach(b => {
+					let book = this.props.books.filter(book => b.id === book.id)[0]
+					b.shelf = book ? book.shelf : "none"
+				});
+				resp.sort(sortBy("title"))
+
+				return this.setState({ results: resp })
+			} else if(!resp || (resp && resp.error)) {
+				return this.setState({results: []});
+			} 
+		})
 	}
 
 	updateQuery = (query) => {
-		this.setState({query: query.trim()})
+		this.setState({query: query}, this.searchBooks)
 	}
 
 	render() {
-		const { books } = this.props;
-		const { query } = this.state;
-		let showBooks;
-
-		if(query) {
-			const match = new RegExp(escapeRegExp(query), 'i')
-			showBooks = books.filter((books) => (match.test(books.title) || match.test(books.authors)))
-		} else {
-			showBooks = []
-		}
-		
-		if(showBooks.length !== 0) {
-			showBooks.sort(sortBy('title'))
-		}
+		const { query, results } = this.state;
 
 		return (
 			<div className="search-books">
@@ -43,7 +47,7 @@ class Search extends React.Component {
 					</div>
 				</div>
 				<div className="search-books-results">
-					<Book books={showBooks} />
+					<Book books={results} />
 				</div>
 			</div>
 		)
